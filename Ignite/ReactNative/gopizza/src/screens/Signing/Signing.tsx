@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { Container } from './styles'
 import Input from '@components/Input'
+import Button from '@components/Button'
 
 const Signing = () => {
   return (
@@ -16,6 +17,10 @@ const Signing = () => {
       placeholder="Password" 
       type='secondary' 
       secureTextEntry
+      />
+      <Button 
+      title="Entrar"
+      type="secondary"
       />
     </Container>
   )
