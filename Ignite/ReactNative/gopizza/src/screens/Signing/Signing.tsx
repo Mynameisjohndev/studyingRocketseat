@@ -5,7 +5,6 @@ import { Container } from './styles'
 const Signing = () => {
   return (
     <Container>
-      <Text>Signing</Text>
     </Container>
   )
 }
