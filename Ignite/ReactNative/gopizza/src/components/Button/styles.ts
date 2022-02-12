@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/native';
-import { RectButton } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
+
+// import { RectButton } from 'react-native-gesture-handler';
 
 export type Typeprops = 'primary' | 'secondary';
 
@@ -7,7 +9,7 @@ type ContainerProps = {
     type: Typeprops;
 }
 
-export const Container = styled(RectButton)<ContainerProps>`
+export const Container = styled(TouchableOpacity)<ContainerProps>`
     flex: 1;
     max-height: 54px;
     min-height: 54px;

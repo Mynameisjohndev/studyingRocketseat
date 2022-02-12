@@ -4,9 +4,12 @@ import React, {
     useState,
     ReactNode
 } from 'react';
+import auth from '@react-native-firebase/auth'
+import { Alert } from 'react-native';
 
 type AuthContextData = {
-
+    signin: (email: string, password: string) => Promise<void>;
+    isLogging: boolean;
 }
 
 type AuthProviderProps = {
@@ -16,17 +19,41 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData);
 
-function AuthProvider({children}: AuthProviderProps){
-    return(
-        <AuthContext.Provider value={{}}>
+function AuthProvider({ children }: AuthProviderProps) {
+
+    const [isLogging, setIsLogging] = useState(false);
+
+    async function signin(email: string, password: string) {
+        console.log(email, password);
+        if (!email || !password) {
+            return Alert.alert("Login", "Informe o e-mail e a senha")
+        }
+        setIsLogging(true);
+        auth().signInWithEmailAndPassword(email, password)
+            .then(account => {
+                console.log(account)
+                return Alert.alert("Login", "Logado com sucesso!");
+            })
+            .catch(err => {
+                const {code} = err;
+                if(code === "auth/user-not-found" || code === "auth/wrong-password"){
+                    return Alert.alert("Login", "E-mail ou senha inválida")
+                }else{
+                    return Alert.alert("Login", "Não foi possível realizar o login")
+                }
+            })
+            .finally(() => setIsLogging(false));
+    }
+    return (
+        <AuthContext.Provider value={{signin, isLogging}}>
             {children}
         </AuthContext.Provider>
     );
 }
 
-function useAuth(){
+function useAuth() {
     const context = useContext(AuthContext);
     return context;
 }
 
-export {AuthProvider, useAuth};
+export { AuthProvider, useAuth };

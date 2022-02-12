@@ -1,5 +1,5 @@
+import React, { useState } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import React from 'react'
 import { 
 Container, 
 Content, 
@@ -11,8 +11,19 @@ ForgotPasswordLabel
 import Input from '@components/Input'
 import Button from '@components/Button'
 import BrandImage from '@assets/brand.png';
+import { useAuth } from '@hooks/auth';
 
 const Signing = () => {
+
+  const {  signin, isLogging } = useAuth();
+  const [email, setEmail] = useState(''); 
+  const [password, setPassword] = useState(''); 
+
+  function handleSignin(){
+    console.log("funciona");
+    signin(email, password);
+  }
+
   return (
     <Container>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
@@ -24,11 +35,13 @@ const Signing = () => {
             type='secondary'
             autoCorrect={false}
             autoCapitalize='none'
-          />
+            onChangeText={setEmail}
+            />
           <Input
             placeholder="Password"
             type='secondary'
             secureTextEntry
+            onChangeText={setPassword}
           />
 
           <ForgotPassword>
@@ -38,6 +51,8 @@ const Signing = () => {
           <Button
             title="Entrar"
             type="secondary"
+            isLoading={isLogging}
+            onPress={handleSignin}
           />
         </Content>
       </KeyboardAvoidingView>
