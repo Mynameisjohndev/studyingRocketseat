@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "689547079690",
+    "project_id": "gopizza-46c02",
+    "storage_bucket": "gopizza-46c02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689547079690:android:efedf7ddb99721f9f4aff3",
+        "android_client_info": {
+          "package_name": "com.gopizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689547079690-7rrtov3pjrr5c603gsa4mf1cgei2go5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1NNpjwO8DBFokE2M0bZzBpcAToBmPydk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689547079690-7rrtov3pjrr5c603gsa4mf1cgei2go5c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689547079690:android:28daabe2f065a2e6f4aff3",
+        "android_client_info": {
+          "package_name": "com.joaoantonio.gopizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689547079690-g9u74drnktpb38hemldjdbqcn988jfna.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.joaoantonio.gopizza",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "689547079690-7rrtov3pjrr5c603gsa4mf1cgei2go5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1NNpjwO8DBFokE2M0bZzBpcAToBmPydk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689547079690-7rrtov3pjrr5c603gsa4mf1cgei2go5c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
