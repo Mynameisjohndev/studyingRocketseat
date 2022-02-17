@@ -9,7 +9,6 @@ import auth from '@react-native-firebase/auth'
 import { Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { longPressGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler';
 
 type User = {
     id: string;
@@ -22,6 +21,7 @@ type AuthContextData = {
     isLogging: boolean;
     user: User | null;
     signOut: () => Promise<void>;
+    forgotPassword: (email: string) => Promise<void>;
 }
 
 type AuthProviderProps = {
@@ -94,8 +94,24 @@ function AuthProvider({ children }: AuthProviderProps) {
         setUser(null);
     }
 
+    async function forgotPassword(email: string){
+        if(!email){
+            Alert.alert("Redefinir senha", "Informe o e-mail!");
+        }
+        auth()
+        .sendPasswordResetEmail(email)
+        .then(() => Alert.alert("Redefinir senha", "Enviamos um link no seu e-mail para redefinir sua senha"))
+        .catch((err) => Alert.alert("Redefinir senha", "Não foi possível enviar o e-mail parada redefinição!"))
+    }
+
     return (
-        <AuthContext.Provider value={{signin, isLogging, user, signOut}}>
+        <AuthContext.Provider value={{
+            signin, 
+            isLogging, 
+            user, 
+            signOut, 
+            forgotPassword
+            }}>
             {children}
         </AuthContext.Provider>
     );
