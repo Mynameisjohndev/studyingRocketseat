@@ -1,5 +1,4 @@
 import React from 'react'
-// import { RectButtonProps } from 'react-native-gesture-handler';
 import { TouchableOpacityProps } from 'react-native';
 import { Container, Title, Load, Typeprops } from './styles';
 
@@ -16,7 +15,7 @@ const Button = ({
     ...rest
 }: Props) => {
   return (
-    <Container type={type} enabled={!isLoading} {...rest}>
+    <Container type={type} {...rest}>
         {isLoading ? <Load/> : <Title>{title}</Title>}
     </Container>
   )

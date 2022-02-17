@@ -20,7 +20,6 @@ const Signing = () => {
   const [password, setPassword] = useState(''); 
 
   function handleSignin(){
-    console.log("funciona");
     signin(email, password);
   }
 

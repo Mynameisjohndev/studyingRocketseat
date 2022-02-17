@@ -6,10 +6,18 @@ import React, {
 } from 'react';
 import auth from '@react-native-firebase/auth'
 import { Alert } from 'react-native';
+import firestore from '@react-native-firebase/firestore'
+
+type User = {
+    id: string;
+    name: string;
+    isAdmin: boolean;
+}
 
 type AuthContextData = {
     signin: (email: string, password: string) => Promise<void>;
     isLogging: boolean;
+    user: User | null;
 }
 
 type AuthProviderProps = {
@@ -20,19 +28,35 @@ type AuthProviderProps = {
 export const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-
     const [isLogging, setIsLogging] = useState(false);
+    const [user,setUser] = useState< User | null>(null);
 
     async function signin(email: string, password: string) {
-        console.log(email, password);
         if (!email || !password) {
             return Alert.alert("Login", "Informe o e-mail e a senha")
         }
         setIsLogging(true);
         auth().signInWithEmailAndPassword(email, password)
             .then(account => {
-                console.log(account)
-                return Alert.alert("Login", "Logado com sucesso!");
+                firestore()
+                .collection('users')
+                .doc(account.user.uid)
+                .get()
+                .then(profile => {
+                    const {name, isAdmin} = profile.data() as User;
+
+                    if(profile.exists){
+                        const userData = {
+                            id: account.user.uid,
+                            name,
+                            isAdmin
+                        };
+                        console.log(userData);
+                        setUser(userData);
+                    }
+
+                })
+                .catch(() => {return Alert.alert("Login", "Não foi possivel buscar os dados!")})
             })
             .catch(err => {
                 const {code} = err;
@@ -45,7 +69,7 @@ function AuthProvider({ children }: AuthProviderProps) {
             .finally(() => setIsLogging(false));
     }
     return (
-        <AuthContext.Provider value={{signin, isLogging}}>
+        <AuthContext.Provider value={{signin, isLogging, user}}>
             {children}
         </AuthContext.Provider>
     );
