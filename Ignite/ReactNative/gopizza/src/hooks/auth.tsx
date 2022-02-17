@@ -2,12 +2,14 @@ import React, {
     createContext,
     useContext,
     useState,
-    ReactNode
+    ReactNode,
+    useEffect
 } from 'react';
 import auth from '@react-native-firebase/auth'
 import { Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { longPressGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler';
 
 type User = {
     id: string;
@@ -32,6 +34,21 @@ export const AuthContext = createContext({} as AuthContextData);
 function AuthProvider({ children }: AuthProviderProps) {
     const [isLogging, setIsLogging] = useState(false);
     const [user,setUser] = useState< User | null>(null);
+
+    useEffect(()=>{
+        LoadUserData();
+    },[])
+
+    async function LoadUserData(){
+        setIsLogging(true);
+        const storageUser = await AsyncStorage.getItem(USER_COLLECTION);
+        if(storageUser){
+            const userData = JSON.parse(storageUser) as User;
+            setUser(userData);
+            console.log(userData);
+        }
+        setIsLogging(false);
+    }
 
     async function signin(email: string, password: string) {
         if (!email || !password) {
