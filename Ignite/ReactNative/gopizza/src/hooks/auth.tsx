@@ -7,6 +7,7 @@ import React, {
 import auth from '@react-native-firebase/auth'
 import { Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type User = {
     id: string;
@@ -24,6 +25,7 @@ type AuthProviderProps = {
     children: ReactNode
 }
 
+const USER_COLLECTION = "@GOPIZZA:USERS" 
 
 export const AuthContext = createContext({} as AuthContextData);
 
@@ -42,7 +44,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                 .collection('users')
                 .doc(account.user.uid)
                 .get()
-                .then(profile => {
+                .then(async profile => {
                     const {name, isAdmin} = profile.data() as User;
 
                     if(profile.exists){
@@ -51,10 +53,9 @@ function AuthProvider({ children }: AuthProviderProps) {
                             name,
                             isAdmin
                         };
-                        console.log(userData);
+                        await AsyncStorage.setItem(USER_COLLECTION, JSON.stringify(userData));
                         setUser(userData);
                     }
-
                 })
                 .catch(() => {return Alert.alert("Login", "Não foi possivel buscar os dados!")})
             })
