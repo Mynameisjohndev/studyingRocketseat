@@ -15,12 +15,12 @@ import { useAuth } from '@hooks/auth';
 
 const Signing = () => {
 
-  const {  signin, isLogging } = useAuth();
+  const {  signin, isLogging, forgotPassword } = useAuth();
   const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState(''); 
 
   function handleSignin(){
-    signin(email, password);
+    forgotPassword(email);    // signin(email, password);
   }
 
   return (
