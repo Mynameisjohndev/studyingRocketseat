@@ -20,7 +20,7 @@ const Signing = () => {
   const [password, setPassword] = useState(''); 
 
   function handleSignin(){
-    forgotPassword(email);    // signin(email, password);
+    signin(email, password);
   }
 
   return (

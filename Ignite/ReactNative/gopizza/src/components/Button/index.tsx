@@ -1,23 +1,25 @@
 import React from 'react'
-import { TouchableOpacityProps } from 'react-native';
+import { RectButtonProps, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Container, Title, Load, Typeprops } from './styles';
 
-type Props = TouchableOpacityProps & {
-    title: string;
-    type?: Typeprops;
-    isLoading?: boolean;
+type Props = RectButtonProps & {
+  title: string;
+  type?: Typeprops;
+  isLoading?: boolean;
 }
 
-const Button = ({ 
-    title, 
-    type='primary', 
-    isLoading = false, 
-    ...rest
+const Button = ({
+  title,
+  type = 'primary',
+  isLoading = false,
+  ...rest
 }: Props) => {
   return (
-    <Container type={type} {...rest}>
-        {isLoading ? <Load/> : <Title>{title}</Title>}
-    </Container>
+    <GestureHandlerRootView>
+      <Container type={type} {...rest}>
+        {isLoading ? <Load /> : <Title>{title}</Title>}
+      </Container>
+    </GestureHandlerRootView>
   )
 }
 
