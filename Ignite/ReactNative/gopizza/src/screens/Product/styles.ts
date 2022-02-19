@@ -45,6 +45,6 @@ export const Upload = styled.View`
 `
 export const PickImageButton = styled(Button)`
     max-width: 90px;
+    width: 90px;
     margin-left: 32px;
-
 `
