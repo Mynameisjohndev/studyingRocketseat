@@ -4,6 +4,7 @@ import { TouchableOpacity, Platform } from 'react-native'
 import ButtonBack from '../ButtonBack';
 import { Container, Header, Title, DeleteLabel, Upload, PickImageButton } from './styles';
 import * as ImagePicker from 'expo-image-picker'
+import InputPrice from '@components/ImputPrice';
 
 const Product = () => {
 
@@ -39,6 +40,9 @@ const Product = () => {
         <Photo uri={image}/>
         <PickImageButton onPress={handlePickImage} type="secondary" title='Carregar'/>
       </Upload>
+      <InputPrice size="P"/>
+      <InputPrice size="M"/>
+      <InputPrice size="G"/>
     </Container>
   )
 }
