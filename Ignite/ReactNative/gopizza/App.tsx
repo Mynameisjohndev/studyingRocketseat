@@ -8,6 +8,7 @@ import theme from './src/theme';
 import Signing from '@screens/Signing/Signing';
 import { AuthProvider } from '@hooks/auth';
 import { LogBox } from 'react-native';
+import Product from '@screens/Product';
 export default function App() {
   const [fontsLoaded] = useFonts({
     DMSans_400Regular,
@@ -25,7 +26,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style='light' translucent backgroundColor='transparent'/>
       <AuthProvider> 
-      <Signing/>
+      <Product/>
       </AuthProvider>
     </ThemeProvider>
   );
