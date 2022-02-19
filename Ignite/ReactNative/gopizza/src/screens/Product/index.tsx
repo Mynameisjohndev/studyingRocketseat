@@ -1,3 +1,4 @@
+import Photo from '@components/Photo';
 import React from 'react'
 import { TouchableOpacity, Platform } from 'react-native'
 import ButtonBack from '../ButtonBack';
@@ -13,6 +14,7 @@ const Product = () => {
           <DeleteLabel>Deletar</DeleteLabel>
         </TouchableOpacity>
       </Header>
+      <Photo uri="https://github.com/Myanameisjohndev.png"/>
     </Container>
   )
 }
