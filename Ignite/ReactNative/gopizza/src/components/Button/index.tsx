@@ -15,11 +15,11 @@ const Button = ({
   ...rest
 }: Props) => {
   return (
-    <GestureHandlerRootView>
-      <Container type={type} {...rest}>
+    <Container type={type} {...rest}>
+      <GestureHandlerRootView>
         {isLoading ? <Load /> : <Title>{title}</Title>}
-      </Container>
-    </GestureHandlerRootView>
+      </GestureHandlerRootView>
+    </Container>
   )
 }
 

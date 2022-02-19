@@ -9,12 +9,12 @@ type ContainerProps = {
 
 export const Container = styled(RectButton)<ContainerProps>`
     flex: 1;
-    max-height: 54px;
-    min-height: 54px;
+    max-height: 56px;
+    min-height: 56px;
     border-radius: 12px;
     justify-content: center;
     align-items: center;
-    background-color: ${({theme, type})=> type === 'primary' ? theme.COLORS.SUCCESS_900 : theme.COLORS.PRIMARY_900};   
+    background-color: ${({theme, type})=> type === 'primary' ? theme.COLORS.SUCCESS_900 : theme.COLORS.PRIMARY_800};   
 `
 
 export const Title = styled.Text`
