@@ -24,6 +24,8 @@ import * as ImagePicker from 'expo-image-picker'
 import InputPrice from '@components/ImputPrice';
 import Input from '@components/Input';
 import Button from '@components/Button';
+import firestore from '@react-native-firebase/firestore'
+import storage from '@react-native-firebase/storage'
 
 const Product = () => {
 
@@ -62,6 +64,28 @@ const Product = () => {
     if(!priceSizeP.trim() || !priceSizeM.trim() || !priceSizeG.trim()){
       return Alert.alert('Cadastro', 'Informe o preço de todos tamanhos de pizza.');
     }
+    setIsLoading(true);
+    const filename = new Date().getTime();
+    const reference = storage().ref(`/pizzas/${filename}.png`);
+    await reference.putFile(image);
+    const photo_url = await reference.getDownloadURL();
+    firestore()
+    .collection('pizzas')
+    .add({
+      name,
+      name_insensitive: name.toLowerCase().trim(),
+      description,
+      price_sizer: {
+        p: priceSizeP,
+        m: priceSizeM,
+        g: priceSizeG
+      },
+      photo_url,
+      photo_path: reference.fullPath,
+    })
+    .then(()=>Alert.alert('Cadastro', 'Pizza cadastrada com sucesso.'))
+    .catch(()=>Alert.alert('Cadastro', 'Não foi possível cadastrar a pizza.'))
+    setIsLoading(false);
   }
 
   return (
