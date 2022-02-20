@@ -9,25 +9,27 @@ import Signing from '@screens/Signing/Signing';
 import { AuthProvider } from '@hooks/auth';
 import { LogBox } from 'react-native';
 import Product from '@screens/Product';
+import Home from '@screens/Home';
 export default function App() {
   const [fontsLoaded] = useFonts({
     DMSans_400Regular,
-    DMSerifDisplay_400Regular 
+    DMSerifDisplay_400Regular
   })
-  
-  if(!fontsLoaded){
-    return <AppLoading/>
+
+  if (!fontsLoaded) {
+    return <AppLoading />
   }
-  
-  LogBox.ignoreLogs([ 
-    "[react-native-gesture-handler] Parece que você está usando uma API antiga com componentes de gestos, confira o novo sistema de gestos!" , 
+
+  LogBox.ignoreLogs([
+    "[react-native-gesture-handler] Parece que você está usando uma API antiga com componentes de gestos, confira o novo sistema de gestos!",
   ]);
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar style='light' translucent backgroundColor='transparent'/>
-      <AuthProvider> 
-      <Product/>
-      {/* <Signing/> */}
+      <StatusBar style='light' translucent backgroundColor='transparent' />
+      <AuthProvider>
+        <Home />
+        {/* <Product/> */}
+        {/* <Signing/> */}
       </AuthProvider>
     </ThemeProvider>
   );
