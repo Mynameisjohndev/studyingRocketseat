@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import Photo from '@components/Photo';
-import { TouchableOpacity, Platform, ScrollView } from 'react-native'
+import { 
+TouchableOpacity, 
+Platform, 
+ScrollView, 
+Alert 
+} from 'react-native'
 import ButtonBack from '../ButtonBack';
 import {
   Container,
@@ -41,6 +46,21 @@ const Product = () => {
       if (!result.cancelled) {
         setImage(result.uri);
       }
+    }
+  }
+
+  async function handleAdd(){
+    if(!name.trim()){
+      return Alert.alert('Cadastro', 'Informe o nome da pizza.');
+    }
+    if(!description.trim()){
+      return Alert.alert('Cadastro', 'Informe a descrição da pizza.');
+    }
+    if(!image.trim()){
+      return Alert.alert('Cadastro', 'Informe a imagem da pizza.');
+    }
+    if(!priceSizeP.trim() || !priceSizeM.trim() || !priceSizeG.trim()){
+      return Alert.alert('Cadastro', 'Informe o preço de todos tamanhos de pizza.');
     }
   }
 
@@ -96,7 +116,11 @@ const Product = () => {
               value={priceSizeG} />
 
           </InputGroup>
-          <Button title='Cadastrar pizza' isLoading={isLoading}/>
+          <Button 
+          title='Cadastrar pizza' 
+          isLoading={isLoading}
+          onPress={handleAdd}
+          />
         </Form>
       </ScrollView>
     </Container>
