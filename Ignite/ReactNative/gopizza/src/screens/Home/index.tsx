@@ -11,6 +11,7 @@ import Emoji from '@assets/happy.png';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 import { TouchableOpacity } from 'react-native';
+import Search from '@components/Search';
 
 const Home = () => {
     const { COLORS } = useTheme();
@@ -22,9 +23,10 @@ const Home = () => {
                     <GreetingText>Olá, Admin </GreetingText>
                 </Greeting>
                 <TouchableOpacity>
-                    <MaterialIcons color={COLORS.TITLE} name="logout" size={18}/>
+                    <MaterialIcons color={COLORS.TITLE} name="logout" size={18} />
                 </TouchableOpacity>
             </Header>
+            <Search onClear={() => { }} onSearch={() => { }} />
         </Container>
     )
 }
