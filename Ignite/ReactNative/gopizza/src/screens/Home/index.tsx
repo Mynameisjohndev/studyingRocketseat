@@ -6,6 +6,9 @@ import {
     Greeting,
     GreetingEmoji,
     GreetingText,
+    MenuItensNumber,
+    MenuTitle,
+    MenuHeader,
 } from './styles'
 import Emoji from '@assets/happy.png';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -27,6 +30,10 @@ const Home = () => {
                 </TouchableOpacity>
             </Header>
             <Search onClear={() => { }} onSearch={() => { }} />
+            <MenuHeader>
+                <MenuTitle>Cardápio</MenuTitle>
+                <MenuItensNumber>10 pizzas</MenuItensNumber>
+            </MenuHeader>
         </Container>
     )
 }
