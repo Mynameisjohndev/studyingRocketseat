@@ -28,11 +28,11 @@ export const Name = styled.Text`
    `}
 `
 export const Description = styled.Text`
-   font-size: 20px;
+   font-size: 12px;
    line-height: 20px;
    margin-right: 21px;
    ${({theme})=>css`
-   font-family: ${theme.FONTS.TITLE};
+   font-family: ${theme.FONTS.TEXT};
         color: ${theme.COLORS.SECONDARY_400};
    `}
 `

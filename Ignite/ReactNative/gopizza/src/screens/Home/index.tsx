@@ -1,5 +1,5 @@
-import { Alert, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { Alert, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import {
     Container,
     Header,
@@ -20,6 +20,8 @@ import firestore from '@react-native-firebase/firestore';
 
 const Home = () => {
     const { COLORS } = useTheme();
+    const [pizzas, setPizzas] = useState<ProductProps[]>([]);
+
 
     function fatchPizzas(value: string) {
         const formatedValue = value.toLowerCase().trim();
@@ -36,7 +38,7 @@ const Home = () => {
                         ...doc.data()
                     }
                 }) as ProductProps[];
-                console.log(data)
+                setPizzas(data);
             })
             .catch(()=> Alert.alert('Consulta', 'Não foi possivel realizar a consulta'));
     }
@@ -61,7 +63,17 @@ const Home = () => {
                 <MenuTitle>Cardápio</MenuTitle>
                 <MenuItensNumber>10 pizzas</MenuItensNumber>
             </MenuHeader>
-            <ProductCard data={{ id: '1', name: 'Pizza', description: 'Teste de descrição', photo_url: 'https://2.bp.blogspot.com/-wNgz-XOKW_o/Um-krPebaNI/AAAAAAAAKbI/NM3fmL-j6Vo/s1600/pizza_de_chourico_com_tomate_cereja_e_queijo_President_vista_de_cima.jpg' }} />
+            <FlatList
+                data={pizzas}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => <ProductCard data={item}/>}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                    paddingTop: 20,
+                    paddingBottom: 125,
+                    marginHorizontal: 24
+                }}
+            /> 
         </Container>
     )
 }
