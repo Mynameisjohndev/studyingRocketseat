@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components/native";
-import theme from '@src/theme';
 
 export const ImageProfile = styled.Image`
     width: 160px;

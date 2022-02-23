@@ -15,6 +15,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import Search from '@components/Search';
+import ProductCard from '@components/ProductCard';
 
 const Home = () => {
     const { COLORS } = useTheme();
@@ -34,6 +35,7 @@ const Home = () => {
                 <MenuTitle>Cardápio</MenuTitle>
                 <MenuItensNumber>10 pizzas</MenuItensNumber>
             </MenuHeader>
+            <ProductCard data={{id: '1', name: 'Pizza', description:  'Teste de descrição', photo_url: 'https://2.bp.blogspot.com/-wNgz-XOKW_o/Um-krPebaNI/AAAAAAAAKbI/NM3fmL-j6Vo/s1600/pizza_de_chourico_com_tomate_cereja_e_queijo_President_vista_de_cima.jpg'}}/>
         </Container>
     )
 }
