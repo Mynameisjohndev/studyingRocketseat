@@ -26,8 +26,14 @@ import Input from '@components/Input';
 import Button from '@components/Button';
 import firestore from '@react-native-firebase/firestore'
 import storage from '@react-native-firebase/storage'
+import { productNavigationProps } from '@src/@types/navigation';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Product = () => {
+
+  const route = useRoute();
+  const { id } = route.params as productNavigationProps;
+  console.log(id);
 
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
