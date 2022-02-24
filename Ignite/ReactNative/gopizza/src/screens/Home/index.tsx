@@ -21,6 +21,7 @@ import firestore from '@react-native-firebase/firestore';
 const Home = () => {
     const { COLORS } = useTheme();
     const [pizzas, setPizzas] = useState<ProductProps[]>([]);
+    const [search, setSearch] = useState('');
 
 
     function fatchPizzas(value: string) {
@@ -43,6 +44,14 @@ const Home = () => {
             .catch(()=> Alert.alert('Consulta', 'Não foi possivel realizar a consulta'));
     }
 
+    function handkeSearch(){
+        fatchPizzas(search);
+    }
+    function handkeClear(){
+        setSearch('');
+        fatchPizzas('');
+    }
+
     useEffect(()=>{
         fatchPizzas('');
     },[])
@@ -58,7 +67,12 @@ const Home = () => {
                     <MaterialIcons color={COLORS.TITLE} name="logout" size={18} />
                 </TouchableOpacity>
             </Header>
-            <Search onClear={() => { }} onSearch={() => { }} />
+            <Search 
+            onClear={handkeClear} 
+            onSearch={handkeSearch} 
+            onChangeText={setSearch}
+            value={search}
+            />
             <MenuHeader>
                 <MenuTitle>Cardápio</MenuTitle>
                 <MenuItensNumber>10 pizzas</MenuItensNumber>
