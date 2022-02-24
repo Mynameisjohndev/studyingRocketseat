@@ -5,11 +5,9 @@ import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components/native';
 import theme from './src/theme';
-import Signing from '@screens/Signing/Signing';
 import { AuthProvider } from '@hooks/auth';
 import { LogBox } from 'react-native';
-import Product from '@screens/Product';
-import Home from '@screens/Home';
+import { Routes } from './src/routes';
 export default function App() {
   const [fontsLoaded] = useFonts({
     DMSans_400Regular,
@@ -27,9 +25,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style='light' translucent backgroundColor='transparent' />
       <AuthProvider>
-        <Home />
-        {/* <Product/> */}
-        {/* <Signing/> */}
+        <Routes/>
       </AuthProvider>
     </ThemeProvider>
   );
