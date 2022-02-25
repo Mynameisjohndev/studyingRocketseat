@@ -55,7 +55,6 @@ const Home = () => {
     }
     
     function handleOpen(id: string){
-        console.log('cu')
         navigation.navigate('product', {id});
     }
 

@@ -82,6 +82,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                 if(code === "auth/user-not-found" || code === "auth/wrong-password"){
                     return Alert.alert("Login", "E-mail ou senha inválida")
                 }else{
+                    console.log(err);
                     return Alert.alert("Login", "Não foi possível realizar o login")
                 }
             })
