@@ -81,7 +81,7 @@ const Product = () => {
       name,
       name_insensitive: name.toLowerCase().trim(),
       description,
-      price_sizer: {
+      price_size: {
         p: priceSizeP,
         m: priceSizeM,
         g: priceSizeG

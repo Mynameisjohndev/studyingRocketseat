@@ -55,6 +55,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         if (!email || !password) {
             return Alert.alert("Login", "Informe o e-mail e a senha")
         }
+        console.log("true")
         setIsLogging(true);
         auth().signInWithEmailAndPassword(email, password)
             .then(account => {
@@ -73,6 +74,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                         };
                         await AsyncStorage.setItem(USER_COLLECTION, JSON.stringify(userData));
                         setUser(userData);
+                        console.log(userData);
                     }
                 })
                 .catch(() => {return Alert.alert("Login", "Não foi possivel buscar os dados!")})

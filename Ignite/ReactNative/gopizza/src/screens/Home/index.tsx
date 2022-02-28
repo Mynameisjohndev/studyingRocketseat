@@ -45,11 +45,11 @@ const Home = () => {
             .catch(()=> Alert.alert('Consulta', 'Não foi possivel realizar a consulta'));
     }
 
-    function handkeSearch(){
+    function handleSearch(){
         fatchPizzas(search);
     }
 
-    function handkeClear(){
+    function handleClear(){
         setSearch('');
         fatchPizzas('');
     }
@@ -74,8 +74,8 @@ const Home = () => {
                 </TouchableOpacity>
             </Header>
             <Search 
-            onClear={handkeClear} 
-            onSearch={handkeSearch} 
+            onClear={handleClear} 
+            onSearch={handleSearch} 
             onChangeText={setSearch}
             value={search}
             />

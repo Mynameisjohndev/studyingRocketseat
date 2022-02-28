@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "375164451017",
-    "project_id": "gopizza-92ea9",
-    "storage_bucket": "gopizza-92ea9.appspot.com"
+    "project_number": "587351662379",
+    "project_id": "gopizza-d818c",
+    "storage_bucket": "gopizza-d818c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:375164451017:android:dd45f10153df0f6f197518",
+        "mobilesdk_app_id": "1:587351662379:android:b6ae6b8e46649ae9e0af6e",
         "android_client_info": {
           "package_name": "com.joaoantonio.gopizza"
         }
       },
       "oauth_client": [
         {
-          "client_id": "375164451017-4fpaq96l86mkcfu9joc2f2calmn3a9dp.apps.googleusercontent.com",
+          "client_id": "587351662379-24m8fh6a628qaur664k2oj9epbrd1eqj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.joaoantonio.gopizza",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "375164451017-1qu53oll704jah7ct0bndnbo346oegl3.apps.googleusercontent.com",
+          "client_id": "587351662379-m43k0i0rd5c8i5jhp5v5tnd8rttd6jgv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCLC-HbzF_fJdGq-W5gWNV1w4n97sSFD_A"
+          "current_key": "AIzaSyD8hcLK_WEpdnQcy62ELMbQZKncpYB7YSs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "375164451017-1qu53oll704jah7ct0bndnbo346oegl3.apps.googleusercontent.com",
+              "client_id": "587351662379-m43k0i0rd5c8i5jhp5v5tnd8rttd6jgv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
