@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Photo from '@components/Photo';
 import { 
 TouchableOpacity, 
@@ -28,13 +28,24 @@ import firestore from '@react-native-firebase/firestore'
 import storage from '@react-native-firebase/storage'
 import { productNavigationProps } from '@src/@types/navigation';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { ProductProps }  from '@components/ProductCard';
+
+type PizzaResponse = ProductProps &{
+  photo_path: string;
+  price_size:{
+    p: string;
+    m: string;
+    g: string;
+  }
+}
 
 const Product = () => {
 
   const route = useRoute();
   const { id } = route.params as productNavigationProps;
-  console.log(id);
+  // console.log(id);
 
+  const [photoImage, setPhotoImage] = useState('');
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -94,6 +105,25 @@ const Product = () => {
     setIsLoading(false);
   }
 
+  useEffect(()=>{
+    if(id){
+      firestore()
+      .collection('pizzas')
+      .doc(id)
+      .get()
+      .then((response) => { 
+        const product = response.data() as PizzaResponse;
+        setName(product.name);
+        setImage(product.photo_url);
+        setDescription(product.description);
+        setPriceSizeP(product.price_size.p);
+        setPriceSizeM(product.price_size.m);
+        setPriceSizeG(product.price_size.g);
+        setPhotoImage(product.photo_path);
+      })
+    }
+  },[id])
+  
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView showsVerticalScrollIndicator={false}>
