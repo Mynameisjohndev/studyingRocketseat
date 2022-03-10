@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback} from "react";
 import Photo from "@components/Photo";
 import { TouchableOpacity, Platform, ScrollView, Alert, View } from "react-native";
 import ButtonBack from "../ButtonBack";
@@ -22,7 +22,7 @@ import Button from "@components/Button";
 import firestore from "@react-native-firebase/firestore";
 import storage from "@react-native-firebase/storage";
 import { productNavigationProps } from "@src/@types/navigation";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, useFocusEffect} from "@react-navigation/native";
 import { ProductProps } from "@components/ProductCard";
 
 type PizzaResponse = ProductProps & {
@@ -105,6 +105,21 @@ const Product = () => {
     setIsLoading(false);
   }
 
+  function handleDelate(){
+    firestore()
+    .collection("pizzas")
+    .doc(id)
+    .delete()
+    .then(() => {
+      storage()
+      .ref(photoImage)
+      .delete()
+      .then(() => {
+        navigation.navigate('home');
+      })
+    })
+  }
+
   useEffect(() => {
     if (id) {
       firestore()
@@ -130,8 +145,8 @@ const Product = () => {
         <Header>
           <ButtonBack onPress={() => navigation.goBack()} />
           <Title>Cadastrar</Title>
-          {!id ? 
-          <TouchableOpacity>
+          {id ? 
+          <TouchableOpacity onPress={handleDelate}>
             <DeleteLabel>Deletar</DeleteLabel>
           </TouchableOpacity>
           : <View style={{width: 45}}/>
