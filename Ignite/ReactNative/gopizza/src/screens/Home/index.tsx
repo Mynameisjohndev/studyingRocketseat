@@ -9,6 +9,7 @@ import {
     MenuItensNumber,
     MenuTitle,
     MenuHeader,
+    NewPoductButton,
 } from './styles'
 import Emoji from '@assets/happy.png';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -58,6 +59,10 @@ const Home = () => {
         navigation.navigate('product', {id});
     }
 
+    function handleAddPizza(){
+        navigation.navigate('product', {});
+    }
+
     useEffect(()=>{
         fatchPizzas('');
     },[])
@@ -99,6 +104,11 @@ const Home = () => {
                     marginHorizontal: 24
                 }}
             /> 
+            <NewPoductButton 
+            title="Cadastrar Pizza"
+            type="secondary"
+            onPress={handleAddPizza}
+            />
         </Container>
     )
 }

@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components/native';
 import theme from '@src/theme';
 import { LinearGradient } from 'expo-linear-gradient';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
+import Button  from '@components/Button';
 
 export const Container = styled.View`
     flex: 1;
@@ -61,3 +62,8 @@ export const MenuTitle = styled.Text`
     color: ${theme.COLORS.SECONDARY_900} ;
 `}
 `;
+
+export const NewPoductButton = styled(Button)`
+    margin: 0 24px;
+    margin-bottom: ${getBottomSpace() + 80}px;
+`
