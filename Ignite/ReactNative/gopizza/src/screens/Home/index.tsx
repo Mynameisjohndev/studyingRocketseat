@@ -60,7 +60,8 @@ const Home = () => {
   }
 
   function handleOpen(id: string) {
-    navigation.navigate("product", { id });
+    const route = user?.isAdmin ? "product" : "order"
+    navigation.navigate(route, { id });
   }
 
   function handleAddPizza() {

@@ -18,14 +18,21 @@ import RadioButton from "@components/RadioButton";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import { PIZZA_TYPES } from "@utils/pizzaTypes";
+import { useNavigation } from "@react-navigation/native";
 
 const Order = () => {
   const [selectedItem, setSelectedItem] = useState("");
+  const navigation = useNavigation();
+
+  function handleBack(){
+    navigation.goBack()
+  }
+
   return (
     <Container behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <ContentScroll>
         <Header>
-          <ButtonBack onPress={() => {}} style={{ marginBottom: 108 }} />
+          <ButtonBack onPress={handleBack} style={{ marginBottom: 108 }} />
         </Header>
         <Photo source={{ uri: "http://github.com/Myanameisjohndev.png" }} />
         <Form>

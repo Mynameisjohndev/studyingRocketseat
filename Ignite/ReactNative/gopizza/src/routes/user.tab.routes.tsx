@@ -41,7 +41,7 @@ export function UserTabRoutes(){
                 tabBarIcon: ({ color }) => (
                     <ButtomMenu 
                     color={color} 
-                    title="Cardápio"
+                    title="Pedidos"
                     notifications='2'
                     />
                 )

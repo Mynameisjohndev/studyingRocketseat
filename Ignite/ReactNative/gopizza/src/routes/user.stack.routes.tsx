@@ -22,7 +22,7 @@ export function UserStackRoutes() {
       ) : (
         <Group>
           <Screen name="UserTabRoutes" component={UserTabRoutes} />
-          <Screen name="Order" component={Order} />
+          <Screen name="order" component={Order} />
         </Group>
       )}
     </Navigator>
