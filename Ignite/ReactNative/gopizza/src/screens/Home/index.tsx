@@ -19,8 +19,10 @@ import Search from "@components/Search";
 import ProductCard, { ProductProps } from "@components/ProductCard";
 import firestore from "@react-native-firebase/firestore";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useAuth } from "@hooks/auth";
 
 const Home = () => {
+  const { user, signOut} = useAuth();
   const { COLORS } = useTheme();
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
   const [search, setSearch] = useState("");
@@ -76,10 +78,14 @@ const Home = () => {
       <Header>
         <Greeting>
           <GreetingEmoji source={Emoji} />
-          <GreetingText>Olá, Admin </GreetingText>
+          <GreetingText>Olá, {user?.name} </GreetingText>
         </Greeting>
-        <TouchableOpacity>
-          <MaterialIcons color={COLORS.TITLE} name="logout" size={18} />
+        <TouchableOpacity onPress={signOut} >
+          <MaterialIcons 
+          color={COLORS.TITLE} 
+          name="logout" 
+          size={18}
+          />
         </TouchableOpacity>
       </Header>
       <Search
@@ -110,11 +116,15 @@ const Home = () => {
           marginHorizontal: 24,
         }}
       />
-      <NewPoductButton
-        title="Cadastrar Pizza"
-        type="secondary"
-        onPress={handleAddPizza}
-      />
+      {
+        user?.isAdmin && (
+          <NewPoductButton
+            title="Cadastrar Pizza"
+            type="secondary"
+            onPress={handleAddPizza}
+          />
+        )
+      }
     </Container>
   );
 };
