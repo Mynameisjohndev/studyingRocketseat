@@ -12,7 +12,7 @@ type StatusProps = {
     status: StatusTypeProps;
 }
 
-export const Container = styled.View<ContainerProps>`
+export const Container = styled.TouchableOpacity<ContainerProps>`
     width:50%;
     align-items: center;
     padding: 24px;
