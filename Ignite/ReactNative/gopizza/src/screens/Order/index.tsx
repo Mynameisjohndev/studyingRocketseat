@@ -23,33 +23,40 @@ import { PIZZA_TYPES } from "@utils/pizzaTypes";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { ProductProps } from "@components/ProductCard";
 
-type PizzaResponse = ProductProps &{
-  price_sizes:{
-    [key:string]: number;
-  }
-}
+type PizzaResponse = ProductProps & {
+  price_size: {
+    [key: string]: number;
+  };
+};
 
 const Order = () => {
   const [selectedItem, setSelectedItem] = useState("");
+  const [quantity, setQuantity] = useState(0);
+  const [tableNumber, setTableNumber] = useState("");
   const [pizza, setPizza] = useState<PizzaResponse>({} as PizzaResponse);
   const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params as orderNavigationProps;
+  const amount = selectedItem
+    ? pizza.price_size[selectedItem] * quantity
+    : "00,00";
 
-  function handleBack(){
-    navigation.goBack()
+  function handleBack() {
+    navigation.goBack();
   }
 
   useEffect(() => {
-    if(id){
+    if (id) {
       firestore()
-      .collection("pizzas")
-      .doc(id)
-      .get()
-      .then(response => setPizza(response.data() as PizzaResponse))
-      .catch(error => Alert.alert('Produto', 'Não foi possível carregar o produto'))
+        .collection("pizzas")
+        .doc(id)
+        .get()
+        .then((response) => setPizza(response.data() as PizzaResponse))
+        .catch((error) =>
+          Alert.alert("Produto", "Não foi possível carregar o produto")
+        );
     }
-  },[])
+  }, []);
 
   return (
     <Container behavior={Platform.OS === "ios" ? "padding" : undefined}>
@@ -75,14 +82,17 @@ const Order = () => {
           <FormRow>
             <InputGroup>
               <Label>Número da mesa</Label>
-              <Input keyboardType="numeric" />
+              <Input keyboardType="numeric" onChangeText={setTableNumber} />
             </InputGroup>
             <InputGroup>
               <Label>Quantidade</Label>
-              <Input keyboardType="numeric" />
+              <Input
+                keyboardType="numeric"
+                onChangeText={(value) => setQuantity(Number(value))}
+              />
             </InputGroup>
           </FormRow>
-          <Price>Valor de R$ 90,90</Price>
+          <Price>Valor de R$ {amount}</Price>
           <Button title="Confirmar pedido" />
         </Form>
       </ContentScroll>
