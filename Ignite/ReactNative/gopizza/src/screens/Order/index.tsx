@@ -22,6 +22,7 @@ import Input from "@components/Input";
 import { PIZZA_TYPES } from "@utils/pizzaTypes";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { ProductProps } from "@components/ProductCard";
+import { useAuth } from "@hooks/auth";
 
 type PizzaResponse = ProductProps & {
   price_size: {
@@ -34,6 +35,9 @@ const Order = () => {
   const [quantity, setQuantity] = useState(0);
   const [tableNumber, setTableNumber] = useState("");
   const [pizza, setPizza] = useState<PizzaResponse>({} as PizzaResponse);
+  const [sendingOrder, setSendingOrder] = useState(false);
+
+  const { user } = useAuth();
   const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params as orderNavigationProps;
@@ -43,6 +47,36 @@ const Order = () => {
 
   function handleBack() {
     navigation.goBack();
+  }
+
+  async function handleOrder() {
+    if (!selectedItem) {
+      return Alert.alert("Produto", "Selecione o tamanho da pizza");
+    }
+    if (!tableNumber) {
+      return Alert.alert("Produto", "Informe o número da mesa");
+    }
+    if (!quantity) {
+      return Alert.alert("Produto", "Informe a quantidadE");
+    }
+    setSendingOrder(true);
+    firestore()
+      .collection("orders")
+      .add({
+        quantity,
+        table_number: tableNumber,
+        selectedItem,
+        amount,
+        pizza: pizza.name,
+        status: "Preparando",
+        waiter_id: user?.id,
+        image: pizza.photo_url,
+      })
+      .then(() => navigation.navigate("home"))
+      .catch((error) => {
+        Alert.alert("Pedido", "Não foi possível realizar o pedido");
+        setSendingOrder(false);
+      });
   }
 
   useEffect(() => {
@@ -93,7 +127,11 @@ const Order = () => {
             </InputGroup>
           </FormRow>
           <Price>Valor de R$ {amount}</Price>
-          <Button title="Confirmar pedido" />
+          <Button 
+          title="Confirmar pedido" 
+          onPress={handleOrder}
+          isLoading={sendingOrder}
+          />
         </Form>
       </ContentScroll>
     </Container>
