@@ -23,8 +23,8 @@ export const Container = styled.View<ContainerProps>`
 `;
 
 export const Image = styled.Image`
-    width: 140px;
-    height: 140px;
+    width: 104px;
+    height: 104px;
     border-radius: 52px;
 `;
 
@@ -69,6 +69,6 @@ export const StatusLabel = styled.Text<StatusProps>`
     line-height: 20px;
     ${({theme, status}) => css`
         font-family: ${theme.FONTS.TEXT};
-        color: ${status === 'Preparando' ? theme.COLORS.ALERT_900 : theme.COLORS.TITLE}
+        color: ${status === 'Preparando' ? theme.COLORS.ALERT_900 : theme.COLORS.TITLE};
     `};
 `
