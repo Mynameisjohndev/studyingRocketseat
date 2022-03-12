@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { Platform } from "react-native";
+import React, { useState, useEffect } from "react";
+import firestore from "@react-native-firebase/firestore";
+import { orderNavigationProps } from "@src/@types/navigation";
+import { Alert, Platform } from "react-native";
 import {
   Container,
   Header,
@@ -18,15 +20,36 @@ import RadioButton from "@components/RadioButton";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import { PIZZA_TYPES } from "@utils/pizzaTypes";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { ProductProps } from "@components/ProductCard";
+
+type PizzaResponse = ProductProps &{
+  price_sizes:{
+    [key:string]: number;
+  }
+}
 
 const Order = () => {
   const [selectedItem, setSelectedItem] = useState("");
+  const [pizza, setPizza] = useState<PizzaResponse>({} as PizzaResponse);
   const navigation = useNavigation();
+  const route = useRoute();
+  const { id } = route.params as orderNavigationProps;
 
   function handleBack(){
     navigation.goBack()
   }
+
+  useEffect(() => {
+    if(id){
+      firestore()
+      .collection("pizzas")
+      .doc(id)
+      .get()
+      .then(response => setPizza(response.data() as PizzaResponse))
+      .catch(error => Alert.alert('Produto', 'Não foi possível carregar o produto'))
+    }
+  },[])
 
   return (
     <Container behavior={Platform.OS === "ios" ? "padding" : undefined}>
@@ -34,9 +57,9 @@ const Order = () => {
         <Header>
           <ButtonBack onPress={handleBack} style={{ marginBottom: 108 }} />
         </Header>
-        <Photo source={{ uri: "http://github.com/Myanameisjohndev.png" }} />
+        <Photo source={{ uri: pizza.photo_url }} />
         <Form>
-          <Title>Nome da pizza</Title>
+          <Title>{pizza.name}</Title>
           <Label>Selecione um tamanho</Label>
           <Sizes>
             {PIZZA_TYPES.map((pizza) => (
