@@ -1,10 +1,12 @@
+import React, { useState } from "react";
 import { Platform } from "react-native";
-import React from "react";
 import { Container, Header, Photo, Sizes } from "./styles";
 import ButtonBack from "@components/ButtonBack";
 import RadioButton from "@components/RadioButton";
+import { PIZZA_TYPES } from "@utils/pizzaTypes";
 
 const Order = () => {
+  const [selectedItem, setSelectedItem] = useState("");
   return (
     <Container behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <Header>
@@ -12,9 +14,14 @@ const Order = () => {
       </Header>
       <Photo source={{ uri: "http://github.com/Myanameisjohndev.png" }} />
       <Sizes>
-        <RadioButton selected={true} title="Pequena" />
-        <RadioButton selected={false} title="Média" />
-        <RadioButton selected={false} title="Grande" />
+        {PIZZA_TYPES.map((pizza) => (
+          <RadioButton 
+          key={pizza.id} 
+          onPress={() => setSelectedItem(pizza.id)}
+          selected={selectedItem === pizza.id} 
+          title={pizza.name} 
+          />
+        ))}
       </Sizes>
     </Container>
   );
