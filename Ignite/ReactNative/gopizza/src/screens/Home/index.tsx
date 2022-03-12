@@ -90,9 +90,14 @@ const Home = () => {
       />
       <MenuHeader>
         <MenuTitle>Cardápio</MenuTitle>
-        <MenuItensNumber>10 pizzas</MenuItensNumber>
+        <MenuItensNumber>
+          {pizzas.length > 1
+            ? `${pizzas.length} pizzas`
+            : `${pizzas.length} pizza`}
+        </MenuItensNumber>
       </MenuHeader>
       <FlatList
+      
         data={pizzas}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (

@@ -1,7 +1,13 @@
-import React, { useState, useEffect, useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Photo from "@components/Photo";
-import { TouchableOpacity, Platform, ScrollView, Alert, View } from "react-native";
-import ButtonBack from "../ButtonBack";
+import {
+  TouchableOpacity,
+  Platform,
+  ScrollView,
+  Alert,
+  View,
+} from "react-native";
+import ButtonBack from "../../components/ButtonBack";
 import {
   Container,
   Header,
@@ -22,7 +28,11 @@ import Button from "@components/Button";
 import firestore from "@react-native-firebase/firestore";
 import storage from "@react-native-firebase/storage";
 import { productNavigationProps } from "@src/@types/navigation";
-import { useNavigation, useRoute, useFocusEffect} from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  useFocusEffect,
+} from "@react-navigation/native";
 import { ProductProps } from "@components/ProductCard";
 
 type PizzaResponse = ProductProps & {
@@ -98,26 +108,26 @@ const Product = () => {
         photo_url,
         photo_path: reference.fullPath,
       })
-      .then(() => Alert.alert("Cadastro", "Pizza cadastrada com sucesso."))
-      .catch(() =>
-        Alert.alert("Cadastro", "Não foi possível cadastrar a pizza.")
-      );
-    setIsLoading(false);
+      .then(() => navigation.navigate("home"))
+      .catch(() => {
+        Alert.alert("Cadastro", "Não foi possível cadastrar a pizza.");
+        setIsLoading(false);
+      });
   }
 
-  function handleDelate(){
+  function handleDelate() {
     firestore()
-    .collection("pizzas")
-    .doc(id)
-    .delete()
-    .then(() => {
-      storage()
-      .ref(photoImage)
+      .collection("pizzas")
+      .doc(id)
       .delete()
       .then(() => {
-        navigation.navigate('home');
-      })
-    })
+        storage()
+          .ref(photoImage)
+          .delete()
+          .then(() => {
+            navigation.navigate("home");
+          });
+      });
   }
 
   useEffect(() => {
@@ -145,21 +155,23 @@ const Product = () => {
         <Header>
           <ButtonBack onPress={() => navigation.goBack()} />
           <Title>Cadastrar</Title>
-          {id ? 
-          <TouchableOpacity onPress={handleDelate}>
-            <DeleteLabel>Deletar</DeleteLabel>
-          </TouchableOpacity>
-          : <View style={{width: 45}}/>
-          }
+          {id ? (
+            <TouchableOpacity onPress={handleDelate}>
+              <DeleteLabel>Deletar</DeleteLabel>
+            </TouchableOpacity>
+          ) : (
+            <View style={{ width: 45 }} />
+          )}
         </Header>
         <Upload>
           <Photo uri={image} />
-          {!id &&
+          {!id && (
             <PickImageButton
-            onPress={handlePickImage}
-            type="secondary"
-            title="Carregar"
-          />}
+              onPress={handlePickImage}
+              type="secondary"
+              title="Carregar"
+            />
+          )}
         </Upload>
         <Form>
           <InputGroup>
@@ -200,12 +212,13 @@ const Product = () => {
               value={priceSizeG}
             />
           </InputGroup>
-          {!id &&
+          {!id && (
             <Button
-            title="Cadastrar pizza"
-            isLoading={isLoading}
-            onPress={handleAdd}
-          />}
+              title="Cadastrar pizza"
+              isLoading={isLoading}
+              onPress={handleAdd}
+            />
+          )}
         </Form>
       </ScrollView>
     </Container>
