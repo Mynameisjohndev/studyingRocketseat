@@ -1,6 +1,6 @@
 import { Platform } from 'react-native'
 import React from 'react'
-import { Container, Header } from './styles';
+import { Container, Header, Photo} from './styles';
 import ButtonBack from '@components/ButtonBack';
 
 const Order = () => {
@@ -12,6 +12,8 @@ const Order = () => {
                 style={{marginBottom: 108}}
             />
         </Header>
+        <Photo source={{uri: "http://github.com/Myanameisjohndev.png"}}/>
+        
     </Container>
   )
 }

@@ -12,3 +12,12 @@ export const Header = styled(LinearGradient).attrs(({ theme })=>({
 }))`
     padding: ${getStatusBarHeight() + 34}px 24px 0px;
 `
+
+export const Photo = styled.Image`
+    width: 250px;
+    height: 250px;
+    border-radius: 120px;
+    align-self: center;
+    position: relative;
+    top: -120px;
+`
