@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import ButtomMenu from '@components/BottomMenu';
 import Home from '@screens/Home';
 import Orders from '@screens/Orders';
 
@@ -21,8 +22,31 @@ export function UserTabRoutes(){
                 padding: Platform.OS === 'ios' ? 20 : 0,   
             }
         }}>
-            <Screen name='home' component={Home}/>
-            <Screen name='orders' component={Orders}/>
+            <Screen 
+            name='home' 
+            component={Home}
+            options={{
+                tabBarIcon: ({ color }) => (
+                    <ButtomMenu 
+                    color={color} 
+                    title="Cardápio"
+                    />
+                )
+            }}
+            />
+            <Screen
+            name='orders' 
+            component={Orders}
+            options={{
+                tabBarIcon: ({ color }) => (
+                    <ButtomMenu 
+                    color={color} 
+                    title="Cardápio"
+                    notifications='2'
+                    />
+                )
+            }}
+            />
         </Navigator>
     )
 }
