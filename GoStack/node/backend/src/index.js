@@ -1,8 +1,11 @@
 const express = require('express');
 
 const app = express();
-app.get('/projects', (request, response) => {
+
+app.get('/', (request, response) => {
     return response.send({ message: 'Hello world!' })
 })
 
-app.listen(3333);
+app.listen(3333, () => {
+    console.log('🚀Backend started!');
+});
