@@ -1,37 +1,64 @@
-const express = require('express');
+const express = require("express");
+const { uuid } = require("uuidv4");
 
 const app = express();
+app.use(express.json());
 
-app.get('/projects', (request, response) => {
-    return response.json([
-        'PROJETO 1',
-        'PROJETO 2'
-    ]);
+const projects = [];
+
+app.get("/projects", (request, response) => {
+  const { title } = request.body;
+  const results = title
+  ? projects.filter(project => project.title.includes(title))
+  : projects;
+  return response.json(results);
 });
 
-app.post('/projects', (request, response) => {
-    return response.json([
-        'PROJETO 1',
-        'PROJETO 2',
-        'PROJETO 3'
-    ]);
+app.get("/projects", (request, response) => {
+  return response.json(projects);
 });
 
-app.put('/projects:id', (request, response) => {
-    return response.json([
-        'PROJETO 4',
-        'PROJETO 2',
-        'PROJETO 3'
-    ]);
+app.post("/projects", (request, response) => {
+  const { title, owner } = request.body;
+  const project = { id: uuid(), title, owner };
+  projects.push(project);
+  return response.json(project);
 });
 
-app.delete('/projects:id', (request, response) => {
-    return response.json([
-        'PROJETO 4',
-        'PROJETO 2'
-    ]);
+app.put("/projects/:id", (request, response) => {
+  const { id } = request.params;
+  const { title, owner } = request.body;
+  const projectIndex = projects.findIndex((project) => project.id === id);
+
+  if (projectIndex < 0) {
+    return response.status(400).json({ Error: "Project not found!" });
+  }
+
+  const project = {
+    id,
+    title,
+    owner,
+  };
+
+  projects[projectIndex] = project;
+
+  return response.json(project);
+});
+
+app.delete("/projects/:id", (request, response) => {
+  const { id } = request.params;
+  const { title, owner } = request.body;
+  const projectIndex = projects.findIndex((project) => project.id === id);
+
+  if (projectIndex < 0) {
+    return response.status(400).json({ Error: "Project not found!" });
+  }
+
+  projects.splice(projectIndex, 1);
+
+  return response.status(204).send();
 });
 
 app.listen(3333, () => {
-    console.log('🚀Backend started!');
+  console.log("🚀Backend started!");
 });
