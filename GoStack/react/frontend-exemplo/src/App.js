@@ -1,16 +1,16 @@
 import React from "react";
 import Header from "./components/Header";
 function App() {
+    const projects = [
+        'Desenvolvimento frontEnd',
+        'Desenvolvimento mobile'
+    ]
   return (
     <>
-      <Header title="Helcome" >
-          <ul>
-              <li>oi</li>
-              <li>oi</li>
-              <li>oi</li>
-          </ul>
-      </Header>
-      <Header title="ReactJs" />
+      <Header title="Helcome 2" />
+      <ul>
+          {projects.map(project => <li key={project}>{project}</li>)}
+      </ul>
     </>
   );
 }
