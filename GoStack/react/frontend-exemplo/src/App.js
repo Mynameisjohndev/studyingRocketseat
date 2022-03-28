@@ -4,32 +4,40 @@ import Image from "./assets/backgorund.jpg";
 import api from "./services/api";
 
 function App() {
+  const [projects, setProjects] = useState([]);
 
-    const [projects, setProjects] = useState([]);
+  async function handleCreateProject() {
+    await api
+      .post("/projects", {
+        title: `Mensagem de ${Date.now()}`,
+        owner: "João Antônio",
+      })
+      .then((response) => {
+        setProjects([...projects, response.data]);
+      });
+  }
 
-    function handleCreateProject(){
-      setProjects([...projects, `Novo projeto ${Date.now()}`]);
-      console.log(projects);
+  useEffect(() => {
+    async function loadProjects() {
+      await api.get("/projects").then((res) => {
+        console.log(res.data);
+        setProjects(res.data);
+      });
     }
-
-    useEffect(()=>{
-    //   async function loadProjects(){
-        api.get('/projects').then((res)=>{
-          console.log(res.data);
-          setProjects(res.data);
-        })
-    //   }
-    //   loadProjects()
-    },[])
-
+    loadProjects();
+  }, []);
 
   return (
     <>
       <Header title="Helcome sd2" />
       <ul>
-          {projects.map(project => <li key={project.id}>{project.title}</li>)}
+        {projects.map((project) => (
+          <li key={project.id}>{project.title}</li>
+        ))}
       </ul>
-      <button type="button" onClick={handleCreateProject}>Adicionar projeto</button>
+      <button type="button" onClick={handleCreateProject}>
+        Adicionar projeto
+      </button>
     </>
   );
 }
