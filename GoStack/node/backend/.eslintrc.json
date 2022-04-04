@@ -15,6 +15,18 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "ts": "never",
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver":{
+            "typescript": {}
+        }
     }
 }
