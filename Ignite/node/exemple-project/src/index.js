@@ -20,8 +20,6 @@ function verifyExistAccountCpf(request, response, next){
     return next();
 }
 
-// app.use(verifyExistAccountCpf);
-
 app.post("/account", (request, response) => {
     const { cpf, name} = request.body;
 
@@ -46,6 +44,24 @@ app.get("/account", verifyExistAccountCpf, (request, response) => {
     const { customer } = request;
 
     return response.json(customer.statement);
+})
+
+app.post("/deposit", verifyExistAccountCpf, (request, response) => {
+    const { description, amount } = request.body;
+
+    const { customer } = request;
+
+    const operation = {
+        description,
+        amount,
+        created_at: new Date(),
+        type: 'credit'
+    };
+
+    customer.statement.push(operation);
+
+    return response.status(201).send();
+
 })
 
 app.listen(3333);
