@@ -51,7 +51,7 @@ app.post("/account", (request, response) => {
     return response.status(201).send(customer)
 });
 
-app.get("/account", verifyExistAccountCpf, (request, response) => {
+app.get("/statement", verifyExistAccountCpf, (request, response) => {
 
     const { customer } = request;
 
@@ -99,7 +99,7 @@ app.post("/withdraw", verifyExistAccountCpf, (request, response) => {
 
 })
 
-app.get("/account/date", verifyExistAccountCpf, (request, response) => {
+app.get("/statement/date", verifyExistAccountCpf, (request, response) => {
 
     const { customer } = request;
     const { date } = request.query;
