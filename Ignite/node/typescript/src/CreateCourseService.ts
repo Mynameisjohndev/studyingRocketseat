@@ -1,7 +1,7 @@
 interface Course{
-    name: string;
-    duration: number;
-    educator: string;
+    name?: string;
+    duration?: number;
+    educator?: string;
 };
 
 class CreateCourseService {
