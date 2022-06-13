@@ -23,6 +23,10 @@ class CategoryRepositoryy {
 
         this.categories.push(category);
     }
+
+    list(): Category[] {
+        return this.categories;
+    }
 }
 
 export { CategoryRepositoryy };
