@@ -7,20 +7,10 @@ import {
 } from "../ICategoriesRepository";
 
 class CategoryRepository implements ICategoriesRepository {
-    // eslint-disable-next-line no-use-before-define
-    private static INSTANCE: CategoryRepository;
-
     private repository: Repository<Category>;
 
-    private constructor() {
+    constructor() {
         this.repository = getRepository(Category);
-    }
-
-    public static getInstance(): CategoryRepository {
-        if (!CategoryRepository.INSTANCE) {
-            CategoryRepository.INSTANCE = new CategoryRepository();
-        }
-        return this.INSTANCE;
     }
 
     async create({ description, name }: ICreateCategoryDTO): Promise<void> {
