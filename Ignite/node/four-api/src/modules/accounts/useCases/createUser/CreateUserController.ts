@@ -15,7 +15,6 @@ class CreateUserController {
             email,
             name,
             password,
-            username,
         });
 
         return response.status(201).send();
