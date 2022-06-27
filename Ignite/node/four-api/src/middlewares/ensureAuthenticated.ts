@@ -30,6 +30,11 @@ export async function ensueredAuthenticated(
         if (!user) {
             throw new AppError("User does not exists!", 401);
         }
+
+        request.user = {
+            id: user.id,
+        };
+
         next();
     } catch (error) {
         throw new AppError("Invalid token", 401);
