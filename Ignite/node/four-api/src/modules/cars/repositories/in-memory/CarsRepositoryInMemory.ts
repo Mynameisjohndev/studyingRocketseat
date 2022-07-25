@@ -3,10 +3,13 @@ import { ICreateCarDTO } from "@modules/dtos/ICreateCarDTO";
 import { ICarsRepository } from "../ICarRepository";
 
 class CarsRepositoryInMemory implements ICarsRepository{
-   
 
     cars: Car[] = [];
-
+    
+    async findByLicensePlate(license_plate: string): Promise<Car> {
+        return this.cars.find(car =>car.lincese_plate === license_plate);
+    }
+   
     async create({
         brand, 
         category_id, 
@@ -15,7 +18,7 @@ class CarsRepositoryInMemory implements ICarsRepository{
         fine_amount, 
         lincese_plate,
         name
-} : ICreateCarDTO): Promise<void> {
+} : ICreateCarDTO): Promise<Car> {
         const car = new Car();
 
         Object.assign(car,{
@@ -29,6 +32,8 @@ class CarsRepositoryInMemory implements ICarsRepository{
         })
 
         this.cars.push(car);
+
+        return car;
 
     }
 
