@@ -1,4 +1,4 @@
-export interface repositoryItemProps{
+interface repositoryItemProps{
   repository: {
     name: string;
     description: string;
