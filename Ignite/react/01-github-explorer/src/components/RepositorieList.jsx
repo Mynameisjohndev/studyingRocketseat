@@ -1,5 +1,5 @@
 import { RepositoryItem } from "./RepositoryItem"
-
+import "../styles/repositories.scss"
 const reponame = "unform1"
 
 const unform = {
