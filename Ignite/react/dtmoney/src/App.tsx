@@ -1,17 +1,11 @@
 import React from 'react';
-
-import styled from 'styled-components';
-
-
-const Title = styled.h1`
-  color: #8257e6;
-  font-size: 18px;
-`;
+import { GlobalStyle } from './assets/styles/global';
 
 export function App() {
   return (
     <div>
-      <Title>Hello world</Title>
+      <h1>Hello world</h1>
+      <GlobalStyle/>
     </div>
   );
 }
