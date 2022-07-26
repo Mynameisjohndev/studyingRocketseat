@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { RepositoryItem } from "./RepositoryItem"
 import "../styles/repositories.scss"
-const reponame = "unform1"
-
-//https://api.github.com/users/Mynameisjohndev/repos
-
-const unform = {
-  name: "Unform",
-  description: "Teste",
-  link: "https://youtube.com"
-}
 
 export function RepositorieList(){
 
@@ -28,18 +19,9 @@ export function RepositorieList(){
     <section className="repository-list">
       <h1>Lista de repositórios</h1>
       <ul>
-        <RepositoryItem
-          repository={unform}
-        />
-        <RepositoryItem
-          repository={unform}
-        />
-        <RepositoryItem
-          repository={unform}        
-        />
-        <RepositoryItem
-          repository={unform}
-        />
+        {repositories.map((repository, index) => {
+          return <RepositoryItem  key={index} repository={repository}/>
+        })}
       </ul>
     </section>
   )
