@@ -50,3 +50,8 @@ export const TransactionContext = createContext<TransactionContextData>({} as Tr
       </TransactionContext.Provider>
     )
   }
+
+  export function useTransactionContext(){
+    const context = useContext(TransactionContext);
+    return context;
+  }
