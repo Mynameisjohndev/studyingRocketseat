@@ -3,28 +3,8 @@ import { TransactionContext } from "../../context/TransactionContext";
 import { api } from "../../services/api";
 import { Container } from "./styles";
 
-interface Transaction{
-  id: number;
-  title: string;
-  amount: number;
-  category: string;
-  type: string;
-  createdAt: string;
-}
-
 export function TransactionTable(){
-  const data = useContext(TransactionContext);
-  const [transactions, setTransactions] = useState<Transaction []>([]);
-
-  useEffect(()=>{
-    console.log(data)
-    api.get("/transactions").then((response)=>{
-      setTransactions(response.data.transactions);
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  },[])
+  const transactions = useContext(TransactionContext)
 
   return(
     <Container>
