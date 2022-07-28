@@ -20,7 +20,7 @@ describe("Create car",() => {
             daily_rate: 90,
             description: "minha descricao",
             fine_amount: 2,
-            lincese_plate: "12312312312",
+            license_plate: "12312312312",
             name: "joao"
         });
 
@@ -37,7 +37,7 @@ describe("Create car",() => {
                 daily_rate: 90,
                 description: "minha descricao",
                 fine_amount: 2,
-                lincese_plate: "12312312312",
+                license_plate: "12312312312",
                 name: "joao"
             });
 
@@ -47,7 +47,7 @@ describe("Create car",() => {
                 daily_rate: 90,
                 description: "minha descricao",
                 fine_amount: 2,
-                lincese_plate: "12312312312",
+                license_plate: "12312312312",
                 name: "joao"
             });
 
@@ -61,7 +61,7 @@ describe("Create car",() => {
             daily_rate: 90,
             description: "minha descricao",
             fine_amount: 2,
-            lincese_plate: "abc213",
+            license_plate: "abc213",
             name: "joao"
         });
 
