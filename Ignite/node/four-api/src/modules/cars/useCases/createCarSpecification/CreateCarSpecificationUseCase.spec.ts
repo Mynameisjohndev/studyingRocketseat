@@ -1,24 +1,30 @@
 import { AppError } from './../../../../shared/errors/AppError';
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
 import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase"
+import { SpecificationInMemory } from '@modules/cars/repositories/in-memory/SpecificationInMemory';
 
 let createCarSpecificationUseCase: CreateCarSpecificationUseCase
 let carsRepositoryInMemory: CarsRepositoryInMemory;
+let specificationRepositoryInMemory: SpecificationInMemory;
 
 describe("Create car specification",()=>{
 
     beforeEach(()=>{
+        specificationRepositoryInMemory = new SpecificationInMemory()
         carsRepositoryInMemory = new CarsRepositoryInMemory()
-        createCarSpecificationUseCase = new CreateCarSpecificationUseCase(carsRepositoryInMemory);
+        createCarSpecificationUseCase = new CreateCarSpecificationUseCase(
+            carsRepositoryInMemory,
+            specificationRepositoryInMemory
+            );
     })
 
     it("Shoul not be able to add new specification to a now-existent car", async() => {
         expect(async()=>{
-            const card_id = "1231";
-            const specification_id = ["ssdsd","sdsd","sdas"];
+            const car_id = "1231";
+            const specifications_id = ["ssdsd","sdsd","sdas"];
             await createCarSpecificationUseCase.execute({
-                card_id,
-                specification_id
+                car_id,
+                specifications_id
             })
         }).rejects.toBeInstanceOf(AppError)
     })
@@ -33,11 +39,20 @@ describe("Create car specification",()=>{
             license_plate: "1231",
             name: "joao"
         })
-        const specification_id = ["ssdsd","sdsd","sdas"];
-        await createCarSpecificationUseCase.execute({
-            card_id: car.id,
-            specification_id
+        const specifications = await specificationRepositoryInMemory.create({
+            description: "teste",
+            name:"teste"
         })
+        
+        const specifications_id = [specifications.id];
+
+        const specifications_cars = await createCarSpecificationUseCase.execute({
+            car_id: car.id,
+            specifications_id
+        })
+
+        expect(specifications_cars).toHaveProperty("specifications");
+        expect(specifications_cars.specifications.length).toBe(1);
     })
 
 })
