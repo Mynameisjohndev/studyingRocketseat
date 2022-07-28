@@ -3,10 +3,14 @@ import { ICreateCarDTO } from "@modules/dtos/ICreateCarDTO";
 import { ICarsRepository } from "../ICarRepository";
 
 class CarsRepositoryInMemory implements ICarsRepository{
-
+    
     
     cars: Car[] = [];
-  
+    
+    async findById(id: String): Promise<Car> {
+        return this.cars.find(car => car.id === id); 
+    }
+
     async findAvaliable( 
         category_id?: string, 
         brand?: string, 
