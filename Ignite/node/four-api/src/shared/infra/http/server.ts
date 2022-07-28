@@ -8,11 +8,11 @@ import { AppError } from "@shared/errors/AppError";
 import { router } from "./routes";
 import swaggerFile from "../../../swagger.json";
 
-import "@shared/infra/typeorm";
+import createConection from "@shared/infra/typeorm";
 import "@shared/Container";
 
 const app = express();
-
+createConection();
 app.use(express.json());
 app.use("/api-docs", swagger.serve, swagger.setup(swaggerFile));
 app.use(router);
