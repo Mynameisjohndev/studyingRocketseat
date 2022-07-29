@@ -21,7 +21,6 @@ class SpecificationInMemory implements ISpecificationRepository{
           ids.includes(specification.id)
         );
     
-        console.log("allSpecifications: " + allSpecifications)        
         return allSpecifications;
     }
 
