@@ -1,0 +1,6 @@
+class UploadCarImageController{
+    
+}
+
+export { UploadCarImageController }
+
