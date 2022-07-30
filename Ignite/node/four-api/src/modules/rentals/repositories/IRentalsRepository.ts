@@ -1,5 +1,5 @@
 import { ICreateRentalDto } from "../dto/ICreateDto";
-import { Rentals } from "../infra/typeorm/entitiees/Rentals";
+import { Rentals } from "../infra/typeorm/entities/Rentals";
 
 interface IRentalsRepository{
     create({car_id,user_id, expected_return_date  } : ICreateRentalDto ): Promise<Rentals>

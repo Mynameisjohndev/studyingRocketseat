@@ -28,6 +28,7 @@ export class CreateRentals1659120749531 implements MigrationInterface {
                     {
                         name: "end_date",
                         type: "timestamp",
+                        isNullable: true
                     },
                     {
                         name: "expected_return_date",
@@ -35,7 +36,8 @@ export class CreateRentals1659120749531 implements MigrationInterface {
                     },
                     {
                         name: "total",
-                        type: "numeric"
+                        type: "numeric",
+                        isNullable: true
                     },
                     {
                         name: "created_at",
@@ -50,7 +52,7 @@ export class CreateRentals1659120749531 implements MigrationInterface {
                 ],
                 foreignKeys:[
                     {
-                        name: "FKRentalsCar",
+                        name: "FKRentalsCars",
                         referencedTableName: "cars",
                         referencedColumnNames: ["id"],
                         columnNames: ["car_id"],

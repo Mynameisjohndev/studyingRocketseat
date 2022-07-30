@@ -1,24 +1,26 @@
-import { Rentals } from '@modules/rentals/infra/typeorm/entitiees/Rentals';
+import { Rentals } from '@modules/rentals/infra/typeorm/entities/Rentals';
 import { AppError } from '../../../../shared/errors/AppError';
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
 import { IDateProvider } from '@shared/Container/providers/DateProvider/IDateProvider';
+import { inject, injectable } from 'tsyringe';
 interface IRequest{
     user_id: string;
     car_id: string;
     expected_return_date: Date;
 }
-
+@injectable()
 class CreateRentalsUseCase{
 
-
     constructor(
+        @inject("RentalsRepository")
         private rentalRepository: IRentalsRepository,
+        @inject("DayjsDateProvider")
         private dateProvider: IDateProvider
     ){}
 
     async execute({ car_id,user_id, expected_return_date }: IRequest) : Promise<Rentals>{
         const minimumHour = 24;
-        
+        console.log("to no use case")
         const carUnavaliable = await this.rentalRepository.findOpenRentalByCar(car_id);       
 
         if(carUnavaliable){
@@ -32,13 +34,23 @@ class CreateRentalsUseCase{
         }
 
         const dateNow = this.dateProvider.dateNow();
-        const compare =  this.dateProvider.compareInHours(dateNow,expected_return_date)
 
-        if(compare < minimumHour){
-            throw new AppError("Invalid Return time");
+        const compare = this.dateProvider.compareInHours(
+        dateNow,
+        expected_return_date
+        );
+
+        if (compare < minimumHour) {
+            throw new AppError("Invalid return time!");
         }
 
-        const rental = await this.rentalRepository.create({car_id,user_id, expected_return_date  })
+        const rental = await this.rentalRepository.create({
+            user_id,
+            car_id,
+            expected_return_date,
+        });
+
+        console.log("RENTAL CRIADA" + rental)
 
         return rental;
     }

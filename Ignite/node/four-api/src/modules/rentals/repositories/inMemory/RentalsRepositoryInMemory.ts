@@ -1,5 +1,5 @@
 import { ICreateRentalDto } from "@modules/rentals/dto/ICreateDto";
-import { Rentals } from "@modules/rentals/infra/typeorm/entitiees/Rentals";
+import { Rentals } from "@modules/rentals/infra/typeorm/entities/Rentals";
 import { IRentalsRepository } from "../IRentalsRepository";
 
 class RentalsRepositoryInMemory implements IRentalsRepository{
