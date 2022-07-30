@@ -1,10 +1,7 @@
 import { Rentals } from '@modules/rentals/infra/typeorm/entitiees/Rentals';
 import { AppError } from '../../../../shared/errors/AppError';
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
-import dayjs  from "dayjs";
-import utc from "dayjs/plugin/utc";
-
-dayjs.extend(utc);
+import { IDateProvider } from '@shared/Container/providers/DateProvider/IDateProvider';
 interface IRequest{
     user_id: string;
     car_id: string;
@@ -15,7 +12,8 @@ class CreateRentalsUseCase{
 
 
     constructor(
-        private rentalRepository: IRentalsRepository
+        private rentalRepository: IRentalsRepository,
+        private dateProvider: IDateProvider
     ){}
 
     async execute({ car_id,user_id, expected_return_date }: IRequest) : Promise<Rentals>{
@@ -33,9 +31,8 @@ class CreateRentalsUseCase{
             throw new AppError("There a rantle in progress for user");
         }
 
-        const expectedDateFormated = dayjs(expected_return_date).utc().local().format();
-        const dateNow = dayjs().utc().local().format();
-        const compare = dayjs(expectedDateFormated).diff(dateNow,"hours");
+        const dateNow = this.dateProvider.dateNow();
+        const compare =  this.dateProvider.compareInHours(dateNow,expected_return_date)
 
         if(compare < minimumHour){
             throw new AppError("Invalid Return time");
