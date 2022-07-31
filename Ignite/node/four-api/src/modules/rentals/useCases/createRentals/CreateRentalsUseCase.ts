@@ -20,7 +20,7 @@ class CreateRentalsUseCase{
 
     async execute({ car_id,user_id, expected_return_date }: IRequest) : Promise<Rentals>{
         const minimumHour = 24;
-        console.log("to no use case")
+
         const carUnavaliable = await this.rentalRepository.findOpenRentalByCar(car_id);       
 
         if(carUnavaliable){
@@ -49,8 +49,6 @@ class CreateRentalsUseCase{
             car_id,
             expected_return_date,
         });
-
-        console.log("RENTAL CRIADA" + rental)
 
         return rental;
     }

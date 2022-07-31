@@ -29,8 +29,8 @@ class Car{
     @Column()
     brand: string;
 
-    @ManyToOne(()=>Category)
-    @JoinColumn({name: "category_id"})
+    @ManyToOne(() => Category)
+    @JoinColumn({ name: "category_id" })
     category: Category;
 
     @Column()
