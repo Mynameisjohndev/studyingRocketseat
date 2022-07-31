@@ -26,7 +26,7 @@ describe("Create category controller",()=>{
         await connection.close();
     })
 
-    it("Should be able to get all cars", async () => {
+    it("Should be able to create a new category", async () => {
         const responseToken = await request(app)
         .post("/sessions")
         .send({
@@ -46,6 +46,28 @@ describe("Create category controller",()=>{
             Authorization: `Bearer ${token}`
         })
         expect(response.status).toBe(201)
+    });
+
+    it("Should not be able to create a new category with name exists", async () => {
+        const responseToken = await request(app)
+        .post("/sessions")
+        .send({
+            email: "admin@rentx.com.br",
+            password: "admin"
+        })
+
+        const { token } = responseToken.body;
+
+        const response = await request(app)
+        .post("/categories")      
+        .send({
+            name: "Cateogry",
+            description: "teste supertest"
+        })
+        .set({
+            Authorization: `Bearer ${token}`
+        })
+        expect(response.status).toBe(400)
     });
 
 })
