@@ -10,7 +10,13 @@ describe("Create category controller",()=>{
     // })
 
     it("Should be able to get all cars", async () => {
-        await request(app).get("/cars/avaliable").expect(200);        
+        const response = await request(app)
+        .post("/categories")      
+        .send({
+            name: "Cateogry",
+            description: "teste supertest"
+        })
+        expect(response.status).toBe(201)
     });
 
 })
