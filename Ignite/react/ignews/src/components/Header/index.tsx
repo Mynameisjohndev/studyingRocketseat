@@ -1,3 +1,4 @@
+import { SigninButton } from '../SigninButton/index'
 import styles from './styles.module.scss'
 export const Header = () => {
   return(
@@ -8,6 +9,7 @@ export const Header = () => {
           <a className={styles.active}>Home</a>
           <a className={styles.active}>Posts</a>
         </nav>
+        <SigninButton/>
       </div>
     </header>
   )
