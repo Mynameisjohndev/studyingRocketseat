@@ -1,4 +1,5 @@
 import Head from '../../node_modules/next/head'
+import { SubscribeButton } from '../components/SubscribeButton/Index'
 import styles from './home.module.scss'
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
           <p>Get acess to all the publications <br/> 
             <span>for $9,90 month</span>
           </p>
+          <SubscribeButton/>
         </section>
         <img src='./Mulher.svg' alt='woman-codding'/>
       </main>
